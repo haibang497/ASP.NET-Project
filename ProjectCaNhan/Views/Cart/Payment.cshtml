@@ -1,0 +1,66 @@
+﻿@model List<ProjectCaNhan.Models.CartItem>
+@{
+    ViewBag.Title = "Payment";
+}
+<style>
+    td, th {
+  border: 2px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+    .table-bordered {
+        border: 1px solid #ddd;
+        border-collapse: separate;
+        border-left: 0;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+    table {
+        display: table;
+        border-collapse: separate;
+        box-sizing: border-box;
+        border-spacing: 2px;
+        border-color: grey;
+    }
+</style>
+<h2>Payment</h2>
+@using (Html.BeginForm("OrderProccess", "Cart", FormMethod.Post, new { id = "customer-form" }))
+{
+    <h3 style="text-align:center">Customer's Information</h3>
+            <label for="customerName"><b>Customer Name</b></label>
+            <input type="text" name="customerName" required />
+            <label for="address"><b>Customer Address</b></label>
+            <input type="text" name="address" required />
+        
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th style="width:150px"><b>Name</b></th>
+                <th style="width:150px"><b>Quantity</b></th>
+                <th style="width:150px"><b>Price</b></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.name</td>
+                    <td>@item.quantity</td>
+                    <td>$@((item.quantity * item.price).ToString("#,##0").Replace(',', '.'))</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <table class="table table-bordered">
+        <tr>
+            <th>Total: @Model.Sum(m => m.quantity)</th>
+            <th>Total cost:<p>$@Model.Sum(m => m.total).ToString("#,##0").Replace(',', '.')</p></th>
+        </tr>
+    </table>
+    <input type="submit" value="Confirm" class="btn btn-large btn-success" />
+}
+<a href="@Url.Action("Index", "Cart")" class="btn btn-danger"><i class="icon-arrow-left"></i> Return To Cart </a>

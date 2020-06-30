@@ -1,0 +1,15 @@
+﻿@model List<ProjectCaNhan.Models.Product>
+@foreach (var proSale in Model)
+{
+ 
+    <li class="span3">
+        <div class="thumbnail">
+            <i class="tag"></i>
+            <a href="@Url.Action("Detail", "Product", new { ID=proSale.ID})"><img src="@proSale.Image" alt="" /></a>
+            <div class="caption">
+                <h5>@proSale.Name</h5>
+                <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn btn-info dropdown-toggle" href="/add-to-cart?productId=@proSale.ID&quantity=1&name=@proSale.Name&price=@proSale.Price">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$@proSale.Price</a></h4>
+            </div>
+        </div>
+    </li>
+}

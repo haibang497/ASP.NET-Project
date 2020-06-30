@@ -1,0 +1,22 @@
+﻿@model ProjectCaNhan.Models.Customer
+
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")">Home</a> <span class="divider">/</span></li>
+        <li class="active">Login</li>
+    </ul>
+@using (Html.BeginForm("Login", "User", FormMethod.Post))
+{
+    <div class="form-group">
+        <h1><font size="3" color="blue">Username</font></h1>
+        <input type="text" class="form-control" id="TxtUsername" name="TxtUsername">
+    </div>
+
+    <div class="form-group">
+        <h1><font size="3" color="blue">Password</font></h1>
+        <input type="password" class="form-control" name="TxtPassWord" id="TxtPassWord">
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+
+
+    <h3><font size="4" color="red">@ViewBag.Error</font></h3>
+}

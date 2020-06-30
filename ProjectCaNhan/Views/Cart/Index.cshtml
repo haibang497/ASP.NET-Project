@@ -1,0 +1,119 @@
+﻿@model List<ProjectCaNhan.Models.CartItem>
+
+<table id="tblCart" class="table">
+    <thead>
+        <tr>
+            <td style="width:100px"><b>ID</b></td>
+            <td style="width:150px"><b>Name</b></td>
+            <td style="width:150px"><b>Quantity</b></td>
+            <td style="width:150px"><b>Price</b></td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.productId</td>
+            <td class="Name">@item.name</td>
+            @*<td class="Quantity"><span>@item.quantity</span>
+            <input type="text" value="@item.quantity" style="display:none" />
+        </td>*@
+            <td>
+                @*<a class="Edit" href="javascript:;">Edit</a>
+            <a class="Update" href="javascript:;" style="display:none">Update</a>
+            <a class="Cancel" href="javascript:;" style="display:none">Cancel</a>
+            <a class="Delete" href="javascript:;">Delete</a>*@
+                <form action="@Url.Action("updatedCart")" method="get">
+                    <input type="hidden" name="id" value="@item.productId" />
+                    <input type="number" min="1" step="1" name="newQuantity" value="@item.quantity" />
+                    <button type="submit" class="btn btn-primary btn-sm"> Update </button>
+                </form>
+            </td>
+            <td>$@((item.quantity * item.price).ToString("#,##0").Replace(',', '.'))</td>
+            <td> <a href="@Url.Action("DeleteCart",new { id = item.quantity })" onclick="return confirm('Do you want to delete?');" class="btn btn-danger btn-sm">Delete</a> </td>
+
+        </tr>
+        }
+        <tr>
+            <th>Total:</th>
+            <td>@Model.Sum(m => m.quantity)</td>
+            <th>Total cost:</th>
+            <td><p class="cart_total_price">$@Model.Sum(m => m.total).ToString("#,##0").Replace(',', '.')</p></td>
+        </tr>
+    </tbody>
+</table>
+<a href="@Url.Action("Index", "Home")" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
+<a href="@Url.Action("Payment", "Cart")" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
+<hr />
+@*<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+
+@*<script type="text/javascript">
+    function AppendRow(row, quantity) {
+            //Bind Quantity.
+            $(".Quantity", row).find("span").html(quantity);
+            $(".Quantity", row).find("input").val(quantity);
+
+
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            $("#tblCart").append(row);
+    };
+    $("body").on("click", "#tblCart .Edit", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+            row.find(".Update").show();
+            row.find(".Cancel").show();
+            row.find(".Delete").hide();
+            $(this).hide();
+    });
+    $("body").on("click", "#tblCart .Update", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Cancel").hide();
+            $(this).hide();
+
+            var cart = {};
+            cart.Quantity = row.find(".Quantity").find("span").html();
+            $.ajax({
+                type: "POST",
+                url: '/Cart/UpdateCart',
+                data: '{customer:' + JSON.stringify(cart) + '}',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json"
+            });
+    });
+    $("body").on("click", "#tblCart .Cancel", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    input.val(span.html());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".Edit").show();
+            row.find(".Delete").show();
+            row.find(".Update").hide();
+            $(this).hide();
+        });
+
+</script>*@
+
+

@@ -1,0 +1,74 @@
+﻿@model ProjectCaNhan.Models.CustomerModel
+
+    <style>
+        .text-danger {
+            color: red;
+            font-size: 4;
+        }
+                .signup a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+            .signup a:hover {
+                text-decoration: underline;
+            }
+    </style>
+    <ul class="breadcrumb">
+        <li><a href="@Url.Action("Index", "Home")">Home</a> <span class="divider">/</span></li>
+        <li class="active">Registration</li>
+    </ul>
+@using (Html.BeginForm("Register", "User", FormMethod.Post)){
+    <div class="form-group">
+        <label for="username">Username:</label>
+        @*<input type="text" class="form-control" placeholder="Enter username" id="username">*@
+        @Html.TextBoxFor(m => m.Username, new { htmlAttributes = new { @class = "form-cotrol" } })
+        <h3><font size="4" color="red">@ViewBag.ErrorUsername</font></h3>
+    </div>
+    <div class="form-group">
+        <label for="pwd">Password:</label>
+        @*<input type="password" class="form-control" placeholder="Enter password" id="password">*@
+        @Html.PasswordFor(m => m.Password, new { htmlAttributes = new { @class = "form-cotrol" } })
+    </div>
+    <div class="form-group">
+        <label for="pwd">Confirm Password:</label>
+        @*<input type="password" class="form-control" placeholder="Enter password" id="confirm">*@
+        @Html.PasswordFor(m => m.ConfirmPassword, new { htmlAttributes = new { @class = "form-cotrol" } })
+        @Html.ValidationMessageFor(m=>m.ConfirmPassword, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="name">Name:</label>
+        @Html.TextBoxFor(m => m.Name, new { htmlAttributes = new { @class = "form-cotrol" } })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="email">Email:</label>
+        @*<input type="email" class="form-control" placeholder="Enter email" id="email">*@
+        @Html.TextBoxFor(m => m.Email, new { htmlAttributes = new { @class = "form-cotrol" } })
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        <h3><font size="4" color="red">@ViewBag.ErrorEmail</font></h3>
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone:</label>
+        @*<input type="text" class="form-control" placeholder="Enter Phone" id="phone">*@
+        @Html.TextBoxFor(m => m.Phone, new { htmlAttributes = new { @class = "form-cotrol" } })
+        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <label for="address">Address:</label>
+        @*<input type="text" class="form-control" placeholder="Enter Address" id="address">*@
+        @Html.TextAreaFor(m => m.Address, new { htmlAttributes = new { @class = "form-cotrol" } })
+        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+    </div>
+<div class=" form-group">
+    <h3><font size="5" color="green">@ViewBag.Success</font></h3>
+</div>
+<button type="submit" class="btn btn-primary">Register</button>
+
+<div class="signup">
+    Have an account?
+    <a href="@Url.Action("Login", "User")">Login Now</a>
+</div>
+}
+
+

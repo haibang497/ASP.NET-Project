@@ -1,0 +1,6 @@
+﻿@model List<ProjectCaNhan.Models.Category>
+
+@foreach (var cate in Model)
+{
+    <li><a href="@Url.Action("allProduct", "Product", new { cateId=cate.CategoryID})">@cate.CateName</a></li>
+}
